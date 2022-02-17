@@ -24,10 +24,13 @@ const UserSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    address:{
-        type:String,
-        max:50
-    },
+    address:[
+        {
+            address: {
+                type: Object,
+            },
+        },
+    ],
     
 },{timestamps:true})
 
