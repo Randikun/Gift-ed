@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-//exportar una funcion q define el modelo con sus atributos, luego en db se inyecta squelize el conector
 const ProductSchema = new mongoose.Schema({
     name:{
         type: String,
