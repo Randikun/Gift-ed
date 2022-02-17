@@ -6,7 +6,6 @@ const ProductSchema = new mongoose.Schema({
         required: true,
         min: 3,
         max: 50,
-        unique: false
     },
     price:{
         type: Number,
@@ -18,7 +17,7 @@ const ProductSchema = new mongoose.Schema({
     },
     image:{
         type: String,
-        required:true
+        required: true,
     },
     description:{
         type: String,

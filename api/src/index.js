@@ -10,7 +10,7 @@ const app = express();
 
 dotenv.config()
 
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect("mongodb+srv://lucakail:gifted123@backtestingdb.c0gud.mongodb.net/backTestingDB?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URL, {
 app.use(express.json());
 app.use(helmet()); 
 app.use(morgan('dev'));
-app.use(cookieParser());
+// app.use(cookieParser());
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3001"); // update to match the domain you will make the request from
@@ -49,7 +49,7 @@ app.use((err, req, res, next)=>{
     res.status(status).send(msg);
 })
 
-app.listen(process.env.PORT, ()=> {
+app.listen(3001, ()=> {
     console.log("Server running on port 3001")
 })
 
