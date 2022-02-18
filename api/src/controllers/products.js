@@ -23,7 +23,7 @@ const postProduct = async (req, res) => {
 const getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
-        res.json(product)
+        product? res.json(product) : res.status(404).send("product not found")
     } catch (err) {
         res.status(500).json(err)
     }
