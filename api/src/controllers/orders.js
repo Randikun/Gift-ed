@@ -30,4 +30,15 @@ const postOrder = async (req, res) => {
     }
 }
 
-module.exports = {getAllOrders, getOrder, postOrder};
+const updateOrder = async (req, res) => {
+    try {
+        const orderToUpdate = await Order.findById(req.params.orderId);
+        const updatedOrder = await Order.updateOne(orderToUpdate, {$set: {status: req.body.status}})
+        res.json(updatedOrder);
+    }
+    catch(err) {
+        res.send(err.message);
+    }
+}
+
+module.exports = {getAllOrders, getOrder, postOrder, updateOrder};
