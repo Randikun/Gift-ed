@@ -1,16 +1,17 @@
 //requerir express y rutas
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan")
 const routes = require("./routes/index")
 
+require('dotenv').config();
+
+const { MONGO_URL, PORT } = process.env;
+
 const app = express();
 
-dotenv.config()
-
-mongoose.connect("mongodb+srv://lucakail:gifted123@backtestingdb.c0gud.mongodb.net/backTestingDB?retryWrites=true&w=majority", {
+mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -49,7 +50,7 @@ app.use((err, req, res, next)=>{
     res.status(status).send(msg);
 })
 
-app.listen(3001, ()=> {
+app.listen(PORT, ()=> {
     console.log("Server running on port 3001")
 })
 
