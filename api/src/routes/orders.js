@@ -1,13 +1,14 @@
 const router = require("express").Router(); 
-const {getAllOrders, getOrder, postOrder, updateOrder} = require("../controllers/orders.js")
+const {getAllOrders, getOrder, postOrder, updateOrder} = require("../controllers/orders.js");
+const { verifyTokenAndAdmin } = require("./verifyToken.js");
 
-router.get("/", getAllOrders);
+router.get("/", verifyTokenAndAdmin ,getAllOrders);
 
-router.get("/:orderId", getOrder);
+router.get("/:orderId", verifyTokenAndAdmin, getOrder);
 
-router.post("/", postOrder)
+router.post("/", verifyTokenAndAdmin, postOrder)
 
-router.put("/:orderId", updateOrder)
+router.put("/:orderId", verifyTokenAndAdmin,updateOrder)
 
 
 

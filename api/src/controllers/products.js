@@ -1,11 +1,22 @@
 const Product = require("../models/Product")
 
 const getProducts = async (req, res) => {
+    const categoryFilter = req.query.categories
     try {
-        const products = await Product.find()
+        let products;
+        if(categoryFilter){
+            products = await Product.find({
+                categories:{
+                    $in: [categoryFilter]
+                }
+            })
+        }
+        else{
+            products = await Product.find()
+        }
         res.json(products)
-    } catch (err) {
-        next(err)
+    } catch {
+        (err) => next(err)
     }
 }
 
@@ -14,8 +25,8 @@ const postProduct = async (req, res) => {
         const newProduct = await new Product(req.body);
         const savedProduct = await newProduct.save();
         res.json(savedProduct)
-    } catch (err) {
-        res.status(400).send('ocurrio un error')
+    } catch {
+        (err) => next(err)
     }
 
 }
@@ -24,8 +35,8 @@ const getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         product? res.json(product) : res.status(404).send("product not found")
-    } catch (err) {
-        res.status(500).json(err)
+    } catch {
+        (err) => next(err)
     }
 }
 
@@ -35,8 +46,8 @@ const deleteProduct = async (req, res) => {
         await product.deleteOne();
         res.json("post has been deleted");
 
-    } catch (err) {
-        res.status(500).json(err);
+    } catch {
+        (err) => next(err)
     }
 }
 
@@ -45,8 +56,8 @@ const updateProduct = async (req, res) => {
         const product = await Product.findById(req.params.id);
         await product.updateOne({ $set: req.body });
         res.json("product updated");
-    }catch(err){
-        res.status(500).json(err)
+    }catch{
+        (err) => next(err)
     }
 }
 
