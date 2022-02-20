@@ -1,10 +1,11 @@
 const router = require("express").Router(); 
-const {getProducts, postProduct, getProductById, deleteProduct, updateProduct} = require("../controllers/products.js")
+const {getProducts, postProduct, getProductById, deleteProduct, updateProduct} = require("../controllers/products.js");
+const { verifyTokenAndAdmin } = require("./verifyToken.js");
 
 router.get("/", getProducts)
-router.post("/", postProduct)
 router.get("/:id", getProductById)
-router.delete("/:id", deleteProduct)
-router.put("/:id", updateProduct)
+router.post("/", verifyTokenAndAdmin, postProduct)
+router.delete("/:id", verifyTokenAndAdmin ,deleteProduct)
+router.put("/:id", verifyTokenAndAdmin, updateProduct)
 
 module.exports = router;

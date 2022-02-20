@@ -4,8 +4,8 @@ const getAllOrders = async (req, res) => {
     try {
         const orders = await Order.find()
         res.json(orders)
-    } catch(err) {
-        next(err);
+    } catch {
+        (err) => next(err)
     }
 }
 
@@ -14,8 +14,8 @@ const getOrder = async (req, res) => {
         const order = await Order.findById(req.params.orderId);
         res.json(order);
     }
-    catch(err) {
-        res.status(500).send(err.message);
+    catch {
+        (err) => next(err)
     }
 }
 
@@ -25,8 +25,8 @@ const postOrder = async (req, res) => {
         const savedOrder = await newOrder.save();
         res.json(savedOrder);
     }
-    catch(err) {
-        res.status(500).send(err.message);
+    catch {
+        (err) => next(err)
     }
 }
 
@@ -36,8 +36,8 @@ const updateOrder = async (req, res) => {
         const updatedOrder = await Order.updateOne(orderToUpdate, {$set: {status: req.body.status}})
         res.json(updatedOrder);
     }
-    catch(err) {
-        res.send(err.message);
+    catch {
+        (err) => next(err)
     }
 }
 
